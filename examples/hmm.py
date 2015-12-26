@@ -2,8 +2,8 @@ from __future__ import division
 import numpy as np
 np.seterr(divide='ignore') # these warnings are usually harmless for this code
 from matplotlib import pyplot as plt
-matplotlib.use('Agg')
 import matplotlib
+matplotlib.use('Agg')
 import os
 matplotlib.rcParams['font.size'] = 8
 
