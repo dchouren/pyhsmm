@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 import matplotlib
 import os
 matplotlib.rcParams['font.size'] = 8
+matplotlib.use('Agg')
 
 import pyhsmm
 from pyhsmm.util.text import progprint_xrange
