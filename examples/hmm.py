@@ -2,10 +2,10 @@ from __future__ import division
 import numpy as np
 np.seterr(divide='ignore') # these warnings are usually harmless for this code
 from matplotlib import pyplot as plt
+matplotlib.use('Agg')
 import matplotlib
 import os
 matplotlib.rcParams['font.size'] = 8
-matplotlib.use('Agg')
 
 import pyhsmm
 from pyhsmm.util.text import progprint_xrange
