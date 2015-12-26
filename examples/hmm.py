@@ -51,8 +51,8 @@ posteriormodel.add_data(data)
 for idx in progprint_xrange(100):
     posteriormodel.resample_model()
 
-posteriormodel.plot()
-plt.gcf().suptitle('HDP-HMM sampled model after 100 iterations')
+# posteriormodel.plot()
+# plt.gcf().suptitle('HDP-HMM sampled model after 100 iterations')
 
 ### Sticky-HDP-HMM
 
@@ -65,8 +65,8 @@ posteriormodel.add_data(data)
 for idx in progprint_xrange(100):
     posteriormodel.resample_model()
 
-posteriormodel.plot()
-plt.gcf().suptitle('Sticky HDP-HMM sampled model after 100 iterations')
+# posteriormodel.plot()
+# plt.gcf().suptitle('Sticky HDP-HMM sampled model after 100 iterations')
 
-plt.show()
+# plt.show()
 
