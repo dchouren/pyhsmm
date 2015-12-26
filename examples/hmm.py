@@ -2,7 +2,7 @@ from __future__ import division
 import numpy as np
 np.seterr(divide='ignore') # these warnings are usually harmless for this code
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('GTKAgg')
 from matplotlib import pyplot as plt
 import os
 matplotlib.rcParams['font.size'] = 8
