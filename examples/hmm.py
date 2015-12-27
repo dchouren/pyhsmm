@@ -2,13 +2,15 @@ from __future__ import division
 import numpy as np
 np.seterr(divide='ignore') # these warnings are usually harmless for this code
 import matplotlib
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import os
 matplotlib.rcParams['font.size'] = 8
 
 import pyhsmm
 from pyhsmm.util.text import progprint_xrange
+
+import ipdb
 
 print \
 '''
@@ -43,20 +45,23 @@ obs_hypparams = {'mu_0':np.zeros(obs_dim),
 
 ### HDP-HMM without the sticky bias
 
-obs_distns = [pyhsmm.distributions.Gaussian(**obs_hypparams) for state in xrange(Nmax)]
-posteriormodel = pyhsmm.models.WeakLimitHDPHMM(alpha=6.,gamma=6.,init_state_concentration=1.,
-                                   obs_distns=obs_distns)
-posteriormodel.add_data(data)
+# obs_distns = [pyhsmm.distributions.Gaussian(**obs_hypparams) for state in xrange(Nmax)]
+# posteriormodel = pyhsmm.models.WeakLimitHDPHMM(alpha=6.,gamma=6.,init_state_concentration=1.,
+#                                    obs_distns=obs_distns)
+# posteriormodel.add_data(data)
 
-for idx in progprint_xrange(100):
-    posteriormodel.resample_model()
+# for idx in progprint_xrange(100):
+#     posteriormodel.resample_model()
 
-posteriormodel.plot()
-plt.gcf().suptitle('HDP-HMM sampled model after 100 iterations')
+# posteriormodel.plot()
+# plt.gcf().suptitle('HDP-HMM sampled model after 100 iterations')
 
 ### Sticky-HDP-HMM
 
 obs_distns = [pyhsmm.distributions.Gaussian(**obs_hypparams) for state in xrange(Nmax)]
+
+ipdb.set_trace()
+
 posteriormodel = pyhsmm.models.WeakLimitStickyHDPHMM(
         kappa=50.,alpha=6.,gamma=6.,init_state_concentration=1.,
         obs_distns=obs_distns)

@@ -28,11 +28,11 @@ class build_ext(_build_ext):
         self.include_dirs.append(np.get_include())
 
     # if extension modules fail to build, keep going anyway
-    def run(self):
-        try:
-            _build_ext.run(self)
-        except CompileError:
-            warn('Failed to build extension modules')
+    # def run(self):
+    #     try:
+    #         _build_ext.run(self)
+    #     except CompileError:
+    #         warn('Failed to build extension modules')
 
 # wrap the sdist command to try to generate cython sources
 class sdist(_sdist):
