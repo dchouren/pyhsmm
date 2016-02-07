@@ -65,13 +65,13 @@ eigenurl = 'http://bitbucket.org/eigen/eigen/get/3.2.6.tar.gz'
 eigentarpath = os.path.join('deps', 'Eigen.tar.gz')
 eigenpath = os.path.join('deps', 'Eigen')
 if not os.path.exists(eigenpath):
-    print 'Downloading Eigen...'
+    print('Downloading Eigen...')
     urlretrieve(eigenurl, eigentarpath)
     with tarfile.open(eigentarpath, 'r') as tar:
         tar.extractall('deps')
     thedir = glob(os.path.join('deps', 'eigen-eigen-*'))[0]
     shutil.move(os.path.join(thedir, 'Eigen'), eigenpath)
-    print '...done!'
+    print('...done!')
 
 # make a list of extension modules
 extension_pathspec = os.path.join('pyhsmm','**','*.pyx')  # not recursive before Python 3.5
