@@ -850,6 +850,7 @@ class WeakLimitStickyHDPHMM(WeakLimitHDPHMM):
             kappa=None,alpha=None,gamma=None,trans_matrix=None,
             alpha_a_0=None,alpha_b_0=None,gamma_a_0=None,gamma_b_0=None,
             **kwargs):
+        
         assert (None not in (alpha,gamma)) ^ \
                 (None not in (alpha_a_0,alpha_b_0,gamma_a_0,gamma_b_0))
         if None not in (alpha,gamma):
