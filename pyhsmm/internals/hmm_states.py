@@ -6,11 +6,13 @@ import copy
 from scipy.misc import logsumexp
 
 from pyhsmm.util.stats import sample_discrete
-try:
-    from pyhsmm.util.cstats import sample_markov, count_transitions
-except ImportError:
-    from pyhsmm.util.stats import sample_markov, count_transitions
+# try:
+#     from pyhsmm.util.cstats import sample_markov, count_transitions
+# except ImportError:
+from pyhsmm.util.stats import sample_markov, count_transitions
 from pyhsmm.util.general import rle
+
+import ipdb
 
 ######################
 #  Mixins and bases  #
@@ -580,10 +582,11 @@ class HMMStatesPython(_StatesBase):
 
 class HMMStatesEigen(HMMStatesPython):
     def generate_states(self):
-        self.stateseq = sample_markov(
-                T=self.T,
-                trans_matrix=self.trans_matrix,
-                init_state_distn=self.pi_0)
+        # ipdb.set_trace()
+        T = self.T
+        tm = self.trans_matrix
+        pi0 = self.pi_0
+        self.stateseq = sample_markov(T=T, trans_matrix=tm, init_state_distn=pi0)
 
     ### common messages (Gibbs, EM, likelihood calculation)
 

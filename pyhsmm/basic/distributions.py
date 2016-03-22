@@ -71,6 +71,7 @@ class PoissonDuration(
         _StartAtOneMixin,
         Poisson,
         DurationDistribution):
+    print 'poisson'
     pass
 
 class NegativeBinomialDuration(

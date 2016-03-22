@@ -10,6 +10,8 @@ from numpy.core.umath_tests import inner1d
 
 import general
 
+import ipdb
+
 # TODO write cholesky versions
 
 ### data abstraction
@@ -117,10 +119,11 @@ def sample_discrete(distn,size=[],dtype=np.int32):
     'samples from a one-dimensional finite pmf'
     distn = np.atleast_1d(distn)
     assert (distn >=0).all() and distn.ndim == 1
-    if (0 == distn).all():
+    if (0 == distn).all():  # check if all 0
         return np.random.randint(distn.shape[0],size=size)
     cumvals = np.cumsum(distn)
-    return np.sum(np.array(random(size))[...,na] * cumvals[-1] > cumvals, axis=-1,dtype=dtype)
+    x = np.sum(np.array(random(size))[...,na] * cumvals[-1] > cumvals, axis=-1,dtype=dtype)
+    return x
 
 def sample_discrete_from_log(p_log,axis=0,dtype=np.int32):
     'samples log probability array along specified axis'
@@ -133,6 +136,8 @@ def sample_discrete_from_log(p_log,axis=0,dtype=np.int32):
     return np.sum(randvals > cumvals,axis=axis,dtype=dtype)
 
 def sample_markov(T,trans_matrix,init_state_distn):
+    print 'sample markov'
+    # ipdb.set_trace()
     out = np.empty(T,dtype=np.int32)
     out[0] = sample_discrete(init_state_distn)
     for t in range(1,T):
@@ -217,9 +222,9 @@ def sample_pareto(x_m,alpha):
     return x_m + np.random.pareto(alpha)
 
 def sample_crp_tablecounts(concentration,customers,colweights):
-    m = np.zeros_like(customers)
-    tot = customers.sum()
-    randseq = np.random.random(tot)
+    m = np.zeros_like(customers)  # zeroes array of same shape as customers
+    tot = customers.sum()  # sum transition array
+    randseq = np.random.random(tot)  # make random sequence [0,1] of length tot
 
     starts = np.empty_like(customers)
     starts[0,0] = 0

@@ -16,6 +16,8 @@ except ImportError:
     warn('using slow transition counting')
     from pyhsmm.util.stats import sample_crp_tablecounts, count_transitions
 
+import ipdb
+
 # TODO separate out bayesian and nonbayesian versions?
 
 ########################
@@ -30,6 +32,8 @@ class _HMMTransitionsBase(object):
     def __init__(self,num_states=None,alpha=None,alphav=None,trans_matrix=None):
         self.N = num_states
 
+        # ipdb.set_trace()
+
         if trans_matrix is not None:
             self._row_distns = [Multinomial(alpha_0=alpha,K=self.N,alphav_0=alphav,
                 weights=row) for row in trans_matrix]
@@ -37,9 +41,14 @@ class _HMMTransitionsBase(object):
             self._row_distns = [Multinomial(alpha_0=alpha,K=self.N,alphav_0=alphav)
                     for n in xrange(self.N)] # sample from prior
 
+            # ipdb.set_trace()
+            # trying uniform rather than multinomial
+            # m['weights'] = np.asarray([0.25,0.25,0.25,0.25]) for m in self._row_distns
+
     @property
     def trans_matrix(self):
-        return np.array([d.weights for d in self._row_distns])
+        trans_matrix = np.array([d.weights for d in self._row_distns])
+        return trans_matrix
 
     @trans_matrix.setter
     def trans_matrix(self,trans_matrix):
@@ -324,6 +333,7 @@ class _WeakLimitHDPHMMTransitionsGibbs(
         self.alphav = self.alpha * self.beta
 
     def _get_m(self,trans_counts):
+        # ipdb.set_trace()
         if not (0 == trans_counts).all():
             m = sample_crp_tablecounts(self.alpha,trans_counts,self.beta)
         else:

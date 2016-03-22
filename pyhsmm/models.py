@@ -18,6 +18,7 @@ from pyhsmm.util.general import list_split
 from pyhsmm.util.profiling import line_profiled
 from pybasicbayes.util.stats import atleast_2d
 
+import ipdb
 
 ################
 #  HMM Mixins  #
@@ -62,11 +63,15 @@ class _HMMBase(Model):
         self._clear_caches()
 
     def add_data(self,data,stateseq=None,**kwargs):
+        # ipdb.set_trace()
         self.states_list.append(
                 self._states_class(
                     model=self,data=data,
                     stateseq=stateseq,**kwargs))
-        return self.states_list[-1]
+        # ipdb.set_trace()
+        states_list = self.states_list[-1]
+        # ipdb.set_trace()
+        return states_list
 
     def generate(self,T,keep=True):
         s = self._states_class(model=self,T=T,initialize_from_prior=True)
@@ -443,6 +448,7 @@ class _HMMGibbsSampling(_HMMBase,ModelGibbsSampling):
 
     @line_profiled
     def resample_trans_distn(self):
+        # print 'resampling trans'
         self.trans_distn.resample([s.stateseq for s in self.states_list])
         self._clear_caches()
 
@@ -850,13 +856,16 @@ class WeakLimitStickyHDPHMM(WeakLimitHDPHMM):
             kappa=None,alpha=None,gamma=None,trans_matrix=None,
             alpha_a_0=None,alpha_b_0=None,gamma_a_0=None,gamma_b_0=None,
             **kwargs):
-        
+
+        # ipdb.set_trace()
+
         assert (None not in (alpha,gamma)) ^ \
                 (None not in (alpha_a_0,alpha_b_0,gamma_a_0,gamma_b_0))
         if None not in (alpha,gamma):
             trans_distn = transitions.WeakLimitStickyHDPHMMTransitions(
                     num_states=len(obs_distns),
                     kappa=kappa,alpha=alpha,gamma=gamma,trans_matrix=trans_matrix)
+            # ipdb.set_trace()
         else:
             trans_distn = transitions.WeakLimitStickyHDPHMMTransitionsConc(
                     num_states=len(obs_distns),
