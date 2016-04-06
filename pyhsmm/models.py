@@ -63,7 +63,7 @@ class _HMMBase(Model):
         self._clear_caches()
 
     def add_data(self,data,stateseq=None,**kwargs):
-        # ipdb.set_trace()
+        ipdb.set_trace()
         self.states_list.append(
                 self._states_class(
                     model=self,data=data,
